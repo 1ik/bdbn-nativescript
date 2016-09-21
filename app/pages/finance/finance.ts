@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {ListPage} from '../list/list';
 
 /*
   Generated class for the FinancePage page.
@@ -9,9 +10,12 @@ import { NavController } from 'ionic-angular';
 */
 @Component({
   templateUrl: 'build/pages/finance/finance.html',
+  directives : [ListPage]
 })
 export class FinancePage {
 
+  category : string = "finance";
+  
   constructor(private navCtrl: NavController) {
 
   }

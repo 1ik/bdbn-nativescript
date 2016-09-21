@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
+import {ListPage} from '../list/list';
 /*
   Generated class for the EntertainmentPage page.
 
@@ -9,8 +9,11 @@ import { NavController } from 'ionic-angular';
 */
 @Component({
   templateUrl: 'build/pages/entertainment/entertainment.html',
+  directives : [ListPage]
 })
 export class EntertainmentPage {
+
+  category : string = "entertainment";
 
   constructor(private navCtrl: NavController) {
 
