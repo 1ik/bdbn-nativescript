@@ -15,8 +15,9 @@
 
 <ion-content padding>
     <ion-list>
-      <ion-item *ngFor="let item of items" (click)="onListItemClick(item)">
-        {{item.title}}
+      <ion-item *ngFor="let item of items" (click)="onListItemClick(item)" detail-push>
+        <img height="50px" width="50px" src="https://thumbs.dreamstime.com/z/teamwork-group-friends-logo-image-holding-each-other-39918563.jpg"/>
+        <p> {{item.title}} </p>
       </ion-item>
     </ion-list>
 </ion-content>

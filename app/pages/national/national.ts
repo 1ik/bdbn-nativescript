@@ -3,11 +3,13 @@ import { NavController } from 'ionic-angular';
 import {ListPage} from '../list/list'
 
 @Component({
-  templateUrl: 'build/pages/home/home.html',
-  directives : [ListPage]
-  
+  templateUrl: 'build/pages/national/national.html',
+  directives : [ListPage] 
 })
-export class HomePage {
+export class NationalPage {
+
+  category = "national";
+
   constructor(public navCtrl: NavController) {
   
   }
