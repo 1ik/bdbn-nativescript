@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {DetailsPage} from '../details/details';
+import {NewsService} from '../../service/news.service'
+import 'rxjs/rx';
+import {HTTP_PROVIDERS} from '@angular/http';
 
 /*
   Generated class for the ListPage page.
@@ -10,7 +13,8 @@ import {DetailsPage} from '../details/details';
 */
 @Component({
   selector: "list",
-  templateUrl: 'build/pages/list/list.html'
+  templateUrl: 'build/pages/list/list.html',
+  providers : [NewsService, HTTP_PROVIDERS]
 })
 export class ListPage {
 
@@ -19,13 +23,21 @@ export class ListPage {
 
   items: any;
 
-  constructor(private navCtrl: NavController) {
+  constructor(private navCtrl: NavController,private newsService : NewsService) {
 
   }
 
   ngOnInit() {
-    this.items = this.getList();
-  }
+     this.newsService.getNewsListObservable(this.buildUrl(this.category))
+      .subscribe(
+        (items => {this.items = items}),
+        (error) => {console.log(error)}
+      )
+}
+
+  buildUrl(category : string) : string{
+    return `http://api.bdbn.news/categories/${category}?sources=palo&start=1&size=10&v=0.3`;
+  } 
 
   onListItemClick(item) {
     this.navCtrl.push(DetailsPage, {
@@ -34,97 +46,5 @@ export class ListPage {
     console.log("List item clicked!\n" + item.details);
   }
 
-  // get news list from server and return it
-  getList(): any {
-    console.log("getList() called");
-    if (this.category == "national") {
-      return [
-        {
-          "title": "national title 1",
-          "details": "national Details 1",
-        },
-        {
-          "title": "national title 2",
-          "details": "national Details 2",
-        }
-      ]
-    } else if (this.category == "international") {
-      return [
-        {
-          "title": "international title 1",
-          "details": "international Details 1",
-        },
-        {
-          "title": "international title 2",
-          "details": "international Details 2",
-        }
-      ]
-    } else if (this.category === "finance") {
-      return [
-        {
-          "title": "Finance title 1",
-          "details": "Finance Details 1",
-        },
-        {
-          "title": "Finance title 2",
-          "details": "Finance Details 2",
-        }
-      ]
-    } else if (this.category === "sports") {
-      return [
-        {
-          "title": "sports title 1",
-          "details": "sports Details 1",
-        },
-        {
-          "title": "sports title 2",
-          "details": "sports Details 2",
-        }
-      ]
-    } else if (this.category === "entertainment") {
-      return [
-        {
-          "title": "entertainment title 1",
-          "details": "entertainment Details 1",
-        },
-        {
-          "title": "entertainment title 2",
-          "details": "entertainment Details 2",
-        }
-      ]
-    } else if (this.category === "technology") {
-      return [
-        {
-          "title": "technology title 1",
-          "details": "technology Details 1",
-        },
-        {
-          "title": "technology title 2",
-          "details": "technology Details 2",
-        }
-      ]
-    } else if (this.category === "lifestyle") {
-      return [
-        {
-          "title": "lifestyle title 1",
-          "details": "lifestyle Details 1",
-        },
-        {
-          "title": "lifestyle title 2",
-          "details": "lifestyle Details 2",
-        }
-      ]
-    } else if (this.category === "finance") {
-      return [
-        {
-          "title": "other title 1",
-          "details": "other Details 1",
-        },
-        {
-          "title": "other title 2",
-          "details": "other Details 2",
-        }
-      ]
-    }
-  }
+ 
 }
